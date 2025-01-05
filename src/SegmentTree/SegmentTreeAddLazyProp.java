@@ -1,11 +1,11 @@
 package SegmentTree;
 
-public class SegmentTreeAdd{
+public class SegmentTreeAddLazyProp {
     long[] seg;
     long[] lazy;
     int N;
 
-    public SegmentTreeAdd(int n){
+    public SegmentTreeAddLazyProp(int n){
         N = 1;
         while(N <= n){
             N <<= 1;
