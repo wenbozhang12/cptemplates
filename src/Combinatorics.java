@@ -1,4 +1,4 @@
-public class Combinometrics {
+public class Combinatorics {
     int mod = (int) 1e9 + 7;
     Long[] fac;
     long fac(int i){
