@@ -27,4 +27,36 @@ public class Combinatorics {
     long nCk(int n, int k){
         return fac(n) * pow(fac(k)*fac(n - k)%mod, mod - 2) % mod;
     }
+
+
+    long[] fact, invFact;
+    long[][] prefixC;
+
+    long pow(long base, int exp) {
+        long res = 1;
+        while(exp > 0) {
+            if((exp & 1) == 1) res = (res * base) % mod;
+            base = (base * base) % mod;
+            exp >>= 1;
+        }
+        return res;
+    }
+
+    void build(int n, int k) {
+        fact = new long[n + 1];
+        invFact = new long[n + 1];
+        fact[0] = 1;
+        for(int i = 1; i <= n; i++) {
+            fact[i] = fact[i - 1] * i % mod;
+        }
+        invFact[n] = pow(fact[n], mod - 2);
+        for(int i = n - 1; i >= 0; i--) {
+            invFact[i] = invFact[i + 1] * (i + 1) % mod;
+        }
+    }
+
+    long nCr(int n, int r) {
+        if(r > n) return 0;
+        return fact[n] * invFact[r] % mod * invFact[n - r] % mod;
+    }
 }
