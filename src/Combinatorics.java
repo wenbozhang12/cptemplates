@@ -30,7 +30,6 @@ public class Combinatorics {
 
 
     long[] fact, invFact;
-    long[][] prefixC;
 
     long pow(long base, int exp) {
         long res = 1;
@@ -42,7 +41,7 @@ public class Combinatorics {
         return res;
     }
 
-    void build(int n, int k) {
+    void build(int n) {
         fact = new long[n + 1];
         invFact = new long[n + 1];
         fact[0] = 1;
