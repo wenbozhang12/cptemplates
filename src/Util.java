@@ -16,12 +16,26 @@ public class Util {
         return res;
     }
 
+    long gcd(long a, long b){
+        if(b == 0) return a;
+        return gcd(b, a % b);
+    }
+
+    long lcm(long a, long b){
+        return a /gcd(a, b) *b;
+    }
+
     int[][] dirs = {{0,1},{1,0},{0,-1},{-1,0}};
-    for(int[] d : dirs){
-        int x = d[0] + cur[0];
-        int y = d[1] + cur[1];
-        if(x >= 0 && x < n && y >= 0 && y < m && grid[x][y] != -1){
-            // do stuff
+    void dirs(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int[] cur = {0,1};
+        for(int[] d : dirs){
+            int x = d[0] + cur[0];
+            int y = d[1] + cur[1];
+            if(x >= 0 && x < n && y >= 0 && y < m && grid[x][y] != -1){
+                // do stuff
+            }
         }
     }
 }
