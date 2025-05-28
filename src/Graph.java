@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Graph {
 
-    HashMap<Integer, List<Integer>> buildGraph(int[][] edges, int n){
+    HashMap<Integer, List<Integer>> buildGraph(int[][] edges){
         HashMap<Integer, List<Integer>> g = new HashMap<Integer, List<Integer>>();
         for(var e : edges){
             g.computeIfAbsent(e[0], l -> new ArrayList<Integer>()).add(e[1]);
