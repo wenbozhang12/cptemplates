@@ -21,6 +21,15 @@ public class Util {
         return gcd(b, a % b);
     }
 
+    int digitSum(int i){
+        int res = 0;
+        while(i > 0){
+            res += i % 10;
+            i /= 10;
+        }
+        return res;
+    }
+
     long lcm(long a, long b){
         return a /gcd(a, b) *b;
     }
