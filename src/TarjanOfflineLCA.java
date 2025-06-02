@@ -12,6 +12,7 @@ public class TarjanOfflineLCA {
     public TarjanOfflineLCA(int[][] edges, int[][] queries) {
         g = buildGraph(edges);
         int r = 0;
+        qm = new HashMap<>();
         for(var q : queries) {
             qm.computeIfAbsent(q[0], l -> new ArrayList<>()).add(new int[]{q[1], r});
             qm.computeIfAbsent(q[1], l -> new ArrayList<>()).add(new int[]{q[0], r});
