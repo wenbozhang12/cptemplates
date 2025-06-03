@@ -3,10 +3,19 @@ import java.util.*;
 public class Graph {
 
     HashMap<Integer, List<Integer>> buildGraph(int[][] edges){
-        HashMap<Integer, List<Integer>> g = new HashMap<Integer, List<Integer>>();
+        var g = new HashMap<Integer, List<Integer>>();
         for(var e : edges){
-            g.computeIfAbsent(e[0], l -> new ArrayList<Integer>()).add(e[1]);
-            g.computeIfAbsent(e[1], l -> new ArrayList<Integer>()).add(e[0]);
+            g.computeIfAbsent(e[0], l -> new ArrayList<>()).add(e[1]);
+            g.computeIfAbsent(e[1], l -> new ArrayList<>()).add(e[0]);
+        }
+        return g;
+    }
+
+    HashMap<Integer, List<int[]>> buildGraphWeighted(int[][] edges){
+        var g = new HashMap<Integer, List<int[]>>();
+        for(var e : edges){
+            g.computeIfAbsent(e[0], l -> new ArrayList<>()).add(new int[]{e[1], e[2]});
+            g.computeIfAbsent(e[1], l -> new ArrayList<>()).add(new int[]{e[0], e[2]});
         }
         return g;
     }
