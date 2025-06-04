@@ -20,6 +20,17 @@ public class Graph {
         return g;
     }
 
+    List<Integer>[] buildAdjacencyList(int[][] edges, int n){
+        List<Integer>[] adj = new List[n];
+        for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();
+        for (int[] e : edges) {
+            int a = e[0], b = e[1];
+            adj[a].add(b);
+            adj[b].add(a);
+        }
+        return adj;
+    }
+
     int[][] dirs = {{0, 1},{1,0},{-1,0},{0,-1}};
 
     int[] bfs(int s, HashMap<Integer, List<Integer>> g, int n){
