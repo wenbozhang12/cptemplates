@@ -31,10 +31,9 @@ public class SegmentTreeGCD {
     void update(int p, long v){
         p += N;
         seg[p] = v;
-        p /= 2;
         while(p > 1){
-            seg[p] = gcd(seg[2*p], seg[2*p + 1]);
             p /= 2;
+            seg[p] = gcd(seg[2*p], seg[2*p + 1]);
         }
     }
 
