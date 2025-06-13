@@ -24,10 +24,6 @@ public class Combinatorics {
         return b*pow(b*b%mod, e/2)%mod;
     }
 
-    long nCk(int n, int k){
-        return fac(n) * pow(fac(k)*fac(n - k)%mod, mod - 2) % mod;
-    }
-
 
     long[] fact, invFact;
 
@@ -57,5 +53,15 @@ public class Combinatorics {
     long nCr(int n, int r) {
         if(r > n) return 0;
         return fact[n] * invFact[r] % mod * invFact[n - r] % mod;
+    }
+
+    long nCk(int n, int k) {
+        if (k > n) return 0;
+        if (k > n - k) k = n - k;
+        long result = 1;
+        for (int i = 1; i <= k; i++) {
+            result = result * (n - i + 1) / i;
+        }
+        return result;
     }
 }
