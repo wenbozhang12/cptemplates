@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -91,14 +90,6 @@ public class LCAEulerTour {
             return depth[le] < depth[ri] ? le : ri;
         }
 
-    }
-
-    public static void main(String[] args) {
-        var test = new LCAEulerTour(new int[][]{{0,2},{0, 1}, {0,3}, {1,4}, {1,5}, {4,6}});
-        System.out.println(test.lcaTree.query(0, 2));
-        System.out.println(test.lcaTree.query(1, 1));
-        System.out.println(test.lcaTree.query(3, 4));
-        System.out.println(test.lcaTree.query(6, 5));
     }
 
 }
