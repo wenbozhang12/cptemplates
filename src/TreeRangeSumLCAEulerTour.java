@@ -82,8 +82,8 @@ public class TreeRangeSumLCAEulerTour {
         firstTree = new SegmentTreeRangeSum(edgesPath.size());
         lastTree = new SegmentTreeRangeSum(edgesPath.size());
         for(int i = 0; i < n - 1; i++){
-            firstTree.update(firstEdge[i], edges[edgesPath.get(i)][2]);
-            lastTree.update(lastEdge[i], edges[edgesPath.get(i)][2]);
+            firstTree.update(firstEdge[i], edges[i][2]);
+            lastTree.update(lastEdge[i], edges[i][2]);
         }
     }
 
