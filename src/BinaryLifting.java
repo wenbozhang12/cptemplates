@@ -15,6 +15,8 @@ public class BinaryLifting {
         while((1 << N) <= n)
             N++;
         par = new int[n][N];
+        for(int[] i : par)
+            Arrays.fill(i, -1);
         dfs(0, -1, 0);
     }
 
