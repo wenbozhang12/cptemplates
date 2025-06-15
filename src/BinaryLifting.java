@@ -4,12 +4,12 @@ public class BinaryLifting {
 
     int[] depth;
     int[][] par;
-    HashMap<Integer, List<Integer>> g;
+    List<Integer>[] g;
     int N;
 
     public BinaryLifting(int[][] edges){
-        g = buildGraph(edges);
         int n = edges.length + 1;
+        g = buildAdjacencyList(edges, n);
         depth = new int[n];
         N = 0;
         while((1 << N) <= n)
@@ -28,7 +28,7 @@ public class BinaryLifting {
                 break;
             par[i][j] = par[par[i][j - 1]][j - 1];
         }
-        for(int to : g.getOrDefault(i, new ArrayList<>())){
+        for(int to : g[i]){
             if(to != p)
                 dfs(to, i, d + 1);
         }
@@ -57,12 +57,14 @@ public class BinaryLifting {
         return par[a][0];
     }
 
-    HashMap<Integer, List<Integer>> buildGraph(int[][] edges){
-        HashMap<Integer, List<Integer>> g = new HashMap<Integer, List<Integer>>();
-        for(var e : edges){
-            g.computeIfAbsent(e[0] - 1, l -> new ArrayList<Integer>()).add(e[1] - 1);
-            g.computeIfAbsent(e[1] - 1, l -> new ArrayList<Integer>()).add(e[0] - 1);
+    List<Integer>[] buildAdjacencyList(int[][] edges, int n){
+        List<Integer>[] adj = new List[n];
+        for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();
+        for (int[] e : edges) {
+            int a = e[0], b = e[1];
+            adj[a].add(b);
+            adj[b].add(a);
         }
-        return g;
+        return adj;
     }
 }
