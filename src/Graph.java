@@ -61,7 +61,6 @@ public class Graph {
         Arrays.fill(dist, Long.MAX_VALUE);
         var pq = new PriorityQueue<long[]>((a,b) -> Long.compare(a[0], b[0]));
         pq.add(new long[]{0, s});
-        dist[s] = 0;
         while(!pq.isEmpty()){
             long[] cur = pq.poll();
             if(cur[0] >= dist[(int)cur[1]])
