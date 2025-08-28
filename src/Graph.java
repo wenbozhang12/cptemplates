@@ -11,6 +11,33 @@ public class Graph {
         return g;
     }
 
+    int[] findFurthest(int i, HashMap<Integer, List<Integer>> g, int p){
+        int[] res = new int[]{i, 0};
+        for(var to : g.getOrDefault(i, new ArrayList<>())){
+            var ret = findFurthest(to, g, i);
+            if(ret[1] >= res[1]){
+                res = ret;
+                ret[1]++;
+            }
+        }
+        return res;
+    }
+
+    boolean findPath(int i, int t, HashMap<Integer, List<Integer>> g, List<Integer> path, int p){
+        if(i == t)
+            return true;
+        for(var to : g.getOrDefault(i, new ArrayList<>())){
+            if(to == p)
+                continue;
+            path.add(to);
+            if(findPath(to, t, g, path, i)){
+                return true;
+            }
+            path.removeLast();
+        }
+        return false;
+    }
+
     HashMap<Integer, List<int[]>> buildGraphWeighted(int[][] edges){
         var g = new HashMap<Integer, List<int[]>>();
         for(var e : edges){
