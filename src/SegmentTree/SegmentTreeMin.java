@@ -36,7 +36,7 @@ public class SegmentTreeMin {
 
     long query(int l, int h, int p, int ql, int qh){
         if(h < ql || l > qh)
-            return 0;
+            return Long.MAX_VALUE;
         if(l >= ql && h <= qh)
             return seg[p];
         int m = l + (h - l)/2;
