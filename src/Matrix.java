@@ -24,4 +24,14 @@ public class Matrix {
         }
         return mul(exp(mul(A, A), e/2),A);
     }
+
+    int[][] transpose(int[][] A){
+        int[][] C = new int[A[0].length][A.length];
+        for (int i = 0; i < A.length; i++) {
+            for (int j = 0; j < A[0].length; j++) {
+                C[j][i] = A[i][j];
+            }
+        }
+        return C;
+    }
 }

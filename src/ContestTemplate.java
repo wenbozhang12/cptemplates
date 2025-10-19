@@ -1,148 +1,26 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.*;
 import java.util.*;
 
 public class ContestTemplate {
 
-    static List<int[]>[] adj;
-    static HashSet<Integer> bridges;
+    static int mod = 1000000007;
+    static int[][] dir = {{1,0},{0,1},{-1,0},{0,-1}};
     public static void main(String[] args) {
-        var in = new ContestScanner();
-        var out = new ContestPrinter();
-        int t = in.nextInt();
-        for(int i = 0; i < t; i++){
-            int n = in.nextInt();
-            int m = in.nextInt();
-            int[][] edges = new int[n][2];
-            for(int j = 0; j < m; j++){
-                edges[j][0] = in.nextInt() - 1;
-                edges[j][1] = in.nextInt() - 1;
-            }
-            int q = in.nextInt();
-            int[] qs = new int[q];
-            for(int j = 0; j < q; j++){
-                qs[j] = in.nextInt();
-            }
-            adj = buildAdjacencyList(edges, n);
-            var tf = new TarjanBridgeFinder(adj, n);
-            bridges = tf.getBridges();
-            var path = new HashSet<Integer>();
-            dfs(0, path, new HashSet<>(), n - 1);
-            if(path.isEmpty()){
-                out.println(-1);
-                continue;
-            }
-            var dq = new ArrayDeque<Integer>();
-            int[] min = new int[n];
-            Arrays.fill(min, Integer.MAX_VALUE);
-            boolean[] vis = new boolean[n];
-            for(int j: path){
-                vis[edges[j][0]] = true;
-                vis[edges[j][1]] = true;
-                min[edges[j][0]] = j;
-                min[edges[j][1]] = j;
-                dq.add(edges[j][0]);
-                dq.add(edges[j][1]);
-            }
-            while(!dq.isEmpty()){
-                int s = dq.size();
-                HashSet<Integer> vislevel = new HashSet<>();
-                for(int j = 0; j < s; j++) {
-                    var cur = dq.poll();
-                    for (var to : adj[cur]) {
-                        if (!vis[to[0]]) {
-                            min[to[0]] = Math.min(min[to[0]], min[cur]);
-                            if(!vislevel.contains(to[0])) {
-                                dq.add(to[0]);
-                                vislevel.add(to[0]);
-                            }
-                        }
-                    }
-                }
-                for(int j : vislevel)
-                    vis[j] = true;
-            }
-            for(int j: qs){
-                out.print(min[j - 1] + 1);
-                out.print(" ");
-            }
-            out.println();
-        }
-        out.flush();
-        out.close();
-    }
+        try {
+            var in = new ContestScanner();
+            var out = new ContestPrinter();
+            int t = in.nextInt();
+            nexttc:
+            for(int _i = 1; _i <= t; _i++){
+                int n = in.nextInt();
 
-    static boolean dfs(int cur, HashSet<Integer> path, HashSet<Integer> vis, int t){
-        if(cur == t)
-            return true;
-        for(var to : adj[cur]){
-            if(!vis.contains(to[0])){
-                vis.add(to[0]);
-                if(bridges.contains(to[1])){
-                    path.add(to[1]);
-                }
-                if(dfs(to[0], path, vis, t))
-                    return true;
-                if(bridges.contains(to[1])){
-                    path.remove(to[1]);
-                }
             }
-        }
-        return false;
-    }
-
-    static List<int[]>[] buildAdjacencyList(int[][] edges, int n){
-        List<int[]>[] adj = new List[n];
-        for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();
-        for (int i = 0; i < edges.length; i++) {
-            int[] e = edges[i];
-            int a = e[0], b = e[1];
-            adj[a].add(new int[]{b, i});
-            adj[b].add(new int[]{a, i});
-        }
-        return adj;
-    }
-
-
-    public static class TarjanBridgeFinder {
-        boolean[] vis;
-        int[] tin;
-        int[] tout;
-        int t;
-        int[] low;
-        List<int[]>[] adj;
-        HashSet<Integer> bridges;
-        public TarjanBridgeFinder(List<int[]>[] adj, int n) {
-            this.adj = adj;
-            vis = new boolean[n];
-            tin = new int[n];
-            tout = new int[n];
-            low = new int[n];
-            t = 1;
-            bridges = new HashSet<>();
-            dfs(0, -1);
-        }
-        HashSet<Integer> getBridges() {
-            return bridges;
-        }
-
-        void dfs(int v, int p) {
-            vis[v] = true;
-            tin[v] = low[v] = t++;
-            boolean parent_skipped = false;
-            for (var to : adj[v]) {
-                if (to[0] == p && !parent_skipped) {
-                    parent_skipped = true;
-                    continue;
-                }
-                if (vis[to[0]]) {
-                    low[v] = Math.min(low[v], tin[to[0]]);
-                } else {
-                    dfs(to[0], v);
-                    low[v] = Math.min(low[v], low[to[0]]);
-                    if (low[to[0]] > tin[v])
-                        bridges.add(to[1]);
-                }
-            }
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
