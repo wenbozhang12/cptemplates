@@ -47,4 +47,27 @@ public class Util {
             }
         }
     }
+
+    long sumDigitsUpTo(long n){
+        long res = 0;
+        long preSum = 0;
+        String num = Long.toString(n);
+        for(int i = 0; i < num.length(); i++){
+            long curd = num.charAt(i) - '0';
+            res += pow(10, num.length() - i - 2) * 45 * curd * (num.length() - i - 1);
+            res += curd * (curd - 1 + 2*preSum)/2 * pow(10, num.length() - i - 1);
+            preSum += curd;
+        }
+        return res;
+    }
+
+    long pow(long base, int exp) {
+        long res = 1;
+        while(exp > 0) {
+            if((exp & 1) == 1) res = (res * base);
+            base = (base * base);
+            exp >>= 1;
+        }
+        return res;
+    }
 }
