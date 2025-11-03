@@ -14,6 +14,8 @@ public class Graph {
     int[] findFurthest(int i, HashMap<Integer, List<Integer>> g, int p){
         int[] res = new int[]{i, 0};
         for(var to : g.getOrDefault(i, new ArrayList<>())){
+            if(to == p)
+                continue;
             var ret = findFurthest(to, g, i);
             if(ret[1] >= res[1]){
                 res = ret;
