@@ -28,18 +28,18 @@ public class SegmentTreeAddLazyProp {
             lazy[p] = 0;
         }
         if(h < ql || l > qh)
-            return 0;
+            return Long.MIN_VALUE;
         if(l >= ql && h <= qh)
             return seg[p];
         int m = l + (h - l)/2;
         return query(l, m, 2*p, ql, qh) + query(m + 1, h, 2*p + 1, ql, qh);
     }
 
-    void add(int ql, int qh, int v){
+    void add(int ql, int qh, long v){
         add(0, N - 1, 1, ql, qh, v);
     }
 
-    void add(int l, int h, int p, int ql, int qh, int v){
+    void add(int l, int h, int p, int ql, int qh, long v){
         if(lazy[p] != 0){
             seg[p] += lazy[p]*(h - l + 1);
             if(2*p + 1 < 2*N){
