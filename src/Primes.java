@@ -47,6 +47,20 @@ public class Primes {
         return primes;
     }
 
+    List<Integer>[] buildPrimeFactors(int n){
+        List<Integer>[] facs = new List[n + 1];
+        for(int i = 0; i <= n; i++){
+            facs[i] = new ArrayList<>();
+        }
+        var primes = getPrimes(n);
+        for(int i : primes){
+            for(int j = i; j <= n; j+= i){
+                facs[j].add(i);
+            }
+        }
+        return facs;
+    }
+
     List<Integer>[] buildFactors(int n){
         List<Integer>[] facs = new List[n + 1];
         for(int i = 0; i <= n; i++){

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class StringAlgorithms {
 
     int[] lps(String s) {
@@ -31,5 +33,10 @@ public class StringAlgorithms {
             }
         }
         return z;
+    }
+
+    public static void main(String[] args) {
+        StringAlgorithms s = new StringAlgorithms();
+        System.out.println(Arrays.toString(s.lps("abaabaxabaaba")));
     }
 }
