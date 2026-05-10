@@ -85,17 +85,20 @@ public class Graph {
         return dist;
     }
 
-    long[] djikstra(int s, HashMap<Integer, List<int[]>> g, int n){
+    long[] djikstra(int s, List<long[]>[] g, int n){
         long[] dist = new long[n];
         Arrays.fill(dist, Long.MAX_VALUE);
         var pq = new PriorityQueue<long[]>((a,b) -> Long.compare(a[0], b[0]));
         pq.add(new long[]{0, s});
+        dist[s] = 0;
         while(!pq.isEmpty()){
             long[] cur = pq.poll();
-            if(cur[0] >= dist[(int)cur[1]])
+            if(cur[0] > dist[(int)cur[1]])
                 continue;
-            dist[(int)cur[1]] = cur[0];
-            for(var to : g.getOrDefault((int)cur[1], new ArrayList<>())){
+            for(var to : g[(int)cur[1]]){
+                if(dist[(int)to[0]] <= to[1] + cur[0])
+                    continue;
+                dist[(int)to[0]] = to[1] + cur[0];
                 pq.add(new long[]{to[1] + cur[0], to[0]});
             }
         }
