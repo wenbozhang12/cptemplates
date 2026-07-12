@@ -36,9 +36,9 @@ public class StringAlgorithms {
     }
 
     int[] manacher_odd(String s){
-        s = "$" + s + "^";
         int n = s.length();
-        int[] p = new int[n];
+        s = "$" + s + "^";
+        int[] p = new int[n + 2];
         int l = 0, r = 1;
         for(int i = 1; i <= n; i++) {
             if(i <= r) {
