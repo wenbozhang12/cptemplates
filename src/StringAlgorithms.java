@@ -35,6 +35,26 @@ public class StringAlgorithms {
         return z;
     }
 
+    int[] manacher_odd(String s){
+        s = "$" + s + "^";
+        int n = s.length();
+        int[] p = new int[n];
+        int l = 0, r = 1;
+        for(int i = 1; i <= n; i++) {
+            if(i <= r) {
+                p[i] = Math.min(r - i, p[l + (r - i)]);
+            }
+            while(s.charAt(i - p[i]) == s.charAt(i + p[i])) {
+                p[i]++;
+            }
+            if(i + p[i] > r) {
+                l = i - p[i];
+                r = i + p[i];
+            }
+        }
+        return p;
+    }
+
     public static void main(String[] args) {
         StringAlgorithms s = new StringAlgorithms();
         System.out.println(Arrays.toString(s.lps("abaabaxabaaba")));
