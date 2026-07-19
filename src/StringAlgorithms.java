@@ -55,8 +55,58 @@ public class StringAlgorithms {
         return p;
     }
 
+    int[] sortCyclicShift(String s){
+        int n = s.length();
+        int alphabet = 26;
+        int[] p = new int[n];
+        int[] c = new int[n];
+        int[] cnt = new int[Math.max(alphabet,n)];
+        for (int i = 0; i < n; i++)
+            cnt[s.charAt(i) - 'a']++;
+        for (int i = 1; i < alphabet; i++)
+            cnt[i] += cnt[i-1];
+        for (int i = 0; i < n; i++)
+            p[--cnt[s.charAt(i) - 'a']] = i;
+        c[p[0]] = 0;
+        int classes = 1;
+        for (int i = 1; i < n; i++) {
+            if (s.charAt(p[i]) - 'a' != s.charAt(p[i-1]) - 'a')
+                classes++;
+            c[p[i]] = classes - 1;
+        }
+        int[] pn = new int[n];
+        for (int h = 0; (1 << h) < n; ++h) {
+            int[] cn = new int[n];
+            cnt = new int[Math.max(alphabet,n)];
+            for (int i = 0; i < n; i++) {
+                pn[i] = p[i] - (1 << h);
+                if (pn[i] < 0)
+                    pn[i] += n;
+            }
+            for (int i = 0; i < n; i++)
+                cnt[c[pn[i]]]++;
+            for (int i = 1; i < classes; i++)
+                cnt[i] += cnt[i-1];
+            for (int i = n-1; i >= 0; i--)
+                p[--cnt[c[pn[i]]]] = pn[i];
+            cn[p[0]] = 0;
+            classes = 1;
+            for (int i = 1; i < n; i++) {
+                int cur0 = c[p[i]];
+                int cur1 = c[(p[i] + (1 << h)) % n];
+                int prev0 = c[p[i-1]];
+                int prev1 = c[(p[i-1] + (1 << h)) % n];
+                if (cur0 != prev0 || cur1 != prev1)
+                    ++classes;
+                cn[p[i]] = classes - 1;
+            }
+            c = cn;
+        }
+        return p;
+    }
+
     public static void main(String[] args) {
         StringAlgorithms s = new StringAlgorithms();
-        System.out.println(Arrays.toString(s.lps("abaabaxabaaba")));
+        System.out.println(Arrays.toString(s.sortCyclicShift("baaa")));
     }
 }
