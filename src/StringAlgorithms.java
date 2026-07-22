@@ -77,7 +77,8 @@ public class StringAlgorithms {
         int[] pn = new int[n];
         for (int h = 0; (1 << h) < n; ++h) {
             int[] cn = new int[n];
-            cnt = new int[Math.max(alphabet,n)];
+            for(int i = 0; i < classes; i++)
+                cnt[i] = 0;
             for (int i = 0; i < n; i++) {
                 pn[i] = p[i] - (1 << h);
                 if (pn[i] < 0)
@@ -107,6 +108,6 @@ public class StringAlgorithms {
 
     public static void main(String[] args) {
         StringAlgorithms s = new StringAlgorithms();
-        System.out.println(Arrays.toString(s.sortCyclicShift("baaa")));
+        System.out.println(Arrays.toString(s.sortCyclicShift("baaaccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc")));
     }
 }
